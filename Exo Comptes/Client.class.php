@@ -1,14 +1,28 @@
 <?php 
 
-class Client{
+class Client {
+    private $identifiant;
+    private $comptes = [];
 
-public function __construct(private string $identifiant,private string $compte){
+    public function __construct($identifiant) {
+        $this->identifiant = $identifiant;
+    }
 
-}
+    public function getIdentifiant(){return $this->identifiant;}
+    public function getCompte($numeroCompte){return $this->comptes[$numeroCompte];}
 
-public function afficherSesInfos(){
-    echo "Nom : ".$this->identifiant , $this->compte;
-}
+    public function ajouterCompte($numeroCompte) {
+        $compte = new Compte($numeroCompte);
+        $this->comptes[$numeroCompte] = $compte;
+    }
 
+   
 
+    public function getInfoClient() {
+        $infoClient = "Identifiant du client : {$this->identifiant}\n";
+        foreach ($this->comptes as $compte) {
+            $infoClient .=$compte->getInfoCompte() . "\n";
+        }
+        return $infoClient;
+    }
 }
