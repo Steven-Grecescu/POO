@@ -38,8 +38,8 @@ class Lapin extends Animal {
         echo "Le lapin se nourri \n";
     }
 
-    public function fuir(){
-        echo "Le lapin" . "s'enfuie sur ses d'un seul bond \n";
+    public function fuir(Lapin $lapin){
+        echo "Le lapin {$lapin->getCouleur()} s'enfuie sur ses {$lapin->getNombrePatte()} d'un seul bond ! \n";
     }
 
 }
@@ -77,12 +77,12 @@ class Chasseur extends Humain {
             $lapin->setEnVie(false);
         }
         echo "{$this->getNom()} tire sur le lapin avec son {$this->Arme} et ... ";
-        if ($lapin->getEnVie()){
+        if ($lapin->getEnVie() == false){
             echo "le touche \n";
             echo "Le pauvre petit lapin {$lapin->getCouleur()} est malheureusement mort\n";
         }else{
             echo "le rate \n";
-            echo "Le lapin {$lapin->getCouleur()} s'enfuie sur ses {$lapin->getNombrePatte()} d'un seul bond ! \n";
+            $lapin->fuir($lapin);
         }
     }
 
