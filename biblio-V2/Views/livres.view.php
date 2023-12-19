@@ -21,7 +21,7 @@ ob_start() ?>
 
         <tr>
             <td><img src="public/images/<?= $livres[$i]->getImage(); ?>" alt=""></td>
-            <td><?= $livres[$i]->getTitre();?></td>
+            <td><a href="<?= URL ?>livres/l/<?= $livres[$i]->getIdLivre();?>"><?= $livres[$i]->getTitre();?></a></td>
             <td><?= $livres[$i]->getNbPages(); ?></td>
             <td>
                 <!-- Divisez la colonne "Actions" en deux sous-colonnes -->
@@ -32,7 +32,7 @@ ob_start() ?>
 
         <?php endfor; ?>
     </table>
-    <button>Ajouter</button>
+    <a href="<?= URL ?>livres/a"><button>Ajouter</button></a>
 
 
 <?php 
