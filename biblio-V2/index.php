@@ -24,11 +24,14 @@ if(empty($_GET['page'])){
             }else if($url[1] === "a"){
                 $livreController->ajoutLivre();
             }else if($url[1] === "m"){
-                echo "Modification d'un livre";
+                // echo $url[2];
+                $livreController->modificationLivre($url[2]);
             }else if($url[1] === "s"){
-                echo "Suppression d'un livre";
+                $livreController->suppressionLivre($url[2]);
             }else if($url[1] === "av"){
                 $livreController->ajoutLivreValidation();
+            }else if($url[1] === "mv"){
+                $livreController->modifLivreValidation();
             }else{
                 throw new Exception("La page n'existe pas");
             }

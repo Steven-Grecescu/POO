@@ -26,7 +26,7 @@ class LivreManager extends BDConnexion{
 
     public function getLivreById($id){
         for($i=0;$i<count($this->livres);$i++){
-            if($this->livres[$i]->getIdLivre()=== $id){
+            if($this->livres[$i]->getIdLivre() == $id){
                 return $this->livres[$i];
             }
         }
@@ -51,5 +51,33 @@ class LivreManager extends BDConnexion{
         }
 
     }
+    public function suppressionLivreBD($id){
+        $req = "DELETE FROM livres WHERE idLivre = :idLivre";
+        $stmt = $this->getBDD()->prepare($req);
+        $stmt->bindValue(":idLivre",$id,PDO::PARAM_INT);
+        $resultat = $stmt->execute();
+        $stmt->closeCursor();
+        if($resultat>0){
+        $livre=$this->getLivreById($id);
+        unset($livre);
+        }
+    }
 
+    public function modifLivreBD($id,$titre,$nbPages,$image){
+        $req = "UPDATE livres SET titre = :titre, nbPages = :nbPages,image = :image WHERE idLivre = :idLivre";
+        $stmt = $this->getBDD()->prepare($req);
+        $stmt->bindValue(":idLivre",$id,PDO::PARAM_INT);
+        $stmt->bindValue(":titre",$titre,PDO::PARAM_STR);
+        $stmt->bindValue(":nbPages",$nbPages,PDO::PARAM_INT);
+        $stmt->bindValue(":image",$image,PDO::PARAM_STR);
+
+        $resultat = $stmt->execute();
+        $stmt->closeCursor();
+
+        if($resultat>0){
+            $this->getLivreById($id)->setTitre($titre);
+            $this->getLivreById($id)->setNbPages($titre);
+            $this->getLivreById($id)->setImage($titre);
+        }
+    }
 }
